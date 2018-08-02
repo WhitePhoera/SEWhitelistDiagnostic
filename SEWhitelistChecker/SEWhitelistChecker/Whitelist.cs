@@ -9,6 +9,7 @@ namespace SEWhitelistChecker
 {
     class Whitelist
     {
+
         public static bool IsWhitelistedV1(ISymbol symbol, HashSet<string> whitelist, HashSet<string> blacklist)
         {
             var typeSymbol = symbol as INamedTypeSymbol;

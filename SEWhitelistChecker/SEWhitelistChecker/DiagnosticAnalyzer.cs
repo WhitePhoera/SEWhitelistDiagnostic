@@ -38,8 +38,8 @@ namespace SEWhitelistChecker
         IEnumerable<DiagnosticDescriptor> InitFromVersions(string type, string IdSuffix, IEnumerable<string> version, Dictionary<string, DiagnosticDescriptor> desc)
         {
             yield return desc[""] = new DiagnosticDescriptor($"{IdPrefix}{IdSuffix}", $"Prohibited Type Or Member({type})", $"The type or member '{{0}}' is prohibited({type})", "Whitelist", DiagnosticSeverity.Error, false);
-            foreach (var vers in version)
-                yield return desc[vers] = new DiagnosticDescriptor($"{IdPrefix}{IdSuffix}{vers}", $"Prohibited Type Or Member({type}, {vers})", $"The type or member '{{0}}' is prohibited({type}, {vers})", "Whitelist", DiagnosticSeverity.Error, false);
+            //foreach (var vers in version)
+            //    yield return desc[vers] = new DiagnosticDescriptor($"{IdPrefix}{IdSuffix}{vers}", $"Prohibited Type Or Member({type}, {vers})", $"The type or member '{{0}}' is prohibited({type}, {vers})", "Whitelist", DiagnosticSeverity.Error, false);
         }
 
 
@@ -69,25 +69,22 @@ namespace SEWhitelistChecker
             }
             return true;
         }
-        void DoCheck(SyntaxNodeAnalysisContext context, SyntaxNode node, SymbolInfo info, Dictionary<string, DiagnosticDescriptor> descs, HashSet<string> common, Dictionary<string, HashSet<string>> versioned, HashSet<string> commonBlack, Dictionary<string, HashSet<string>> versionedBlack)
+        void DoCheck(SyntaxNodeAnalysisContext context, SyntaxNode node, SymbolInfo info, Dictionary<string, DiagnosticDescriptor> descs, Dictionary<string, HashSet<string>> versioned, Dictionary<string, HashSet<string>> versionedBlack)
         {
             var errors = new HashSet<string>();
-            if (!GetWhitelistChecker("")(info.Symbol, common, commonBlack))
+            foreach (var vers in versioned)
             {
-                foreach (var vers in versioned)
-                {
-                    if (!GetWhitelistChecker(vers.Key)(info.Symbol, vers.Value, versionedBlack[vers.Key]))
-                        errors.Add(vers.Key);
-                }
-                if (errors.Count == versioned.Count)
-                    context.ReportDiagnostic(Diagnostic.Create(descs[""], node.GetLocation(), info.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)));
-                else
-                {
-                    var loc = node.GetLocation();
-                    var name = info.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
-                    foreach (var errVer in errors)
-                        context.ReportDiagnostic(Diagnostic.Create(descs[errVer], loc, name));
-                }
+                if (!GetWhitelistChecker(vers.Key)(info.Symbol, vers.Value, versionedBlack[vers.Key]))
+                    errors.Add(vers.Key);
+            }
+            if (errors.Count == versioned.Count)
+                context.ReportDiagnostic(Diagnostic.Create(descs[""], node.GetLocation(), info.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)));
+            else
+            {
+                var loc = node.GetLocation();
+                var name = info.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
+                foreach (var errVer in errors)
+                    context.ReportDiagnostic(Diagnostic.Create(descs[errVer], loc, name));
             }
         }
         private void AnalyzeSymbol(SyntaxNodeAnalysisContext context)
@@ -110,8 +107,8 @@ namespace SEWhitelistChecker
             {
                 return;
             }
-            DoCheck(context, node, info, ModDesc, ModData.Common, ModData.VersionData, ModData.CommonBlack, ModData.VersionBlackData);
-            DoCheck(context, node, info, IgsDesc, IgsData.Common, IgsData.VersionData, IgsData.CommonBlack, IgsData.VersionBlackData);
+            DoCheck(context, node, info, ModDesc, ModData.VersionData, ModData.VersionBlackData);
+            DoCheck(context, node, info, IgsDesc, IgsData.VersionData, IgsData.VersionBlackData);
         }
         static bool IsQualifiedName(SyntaxNode arg)
         {
