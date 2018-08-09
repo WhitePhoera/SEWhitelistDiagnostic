@@ -4,6 +4,8 @@ Space engineers whitelist diagnostic for Visual Studio.
 # How to install
 1)Download DLL file from releases page
 
+1.1)Right click on downloaded DLL and open Properties, here check Unlock and Apply changes.
+
 2)Open your SE-project
 
 3)Add analyzer into your project
