@@ -20,10 +20,8 @@ Space engineers whitelist diagnostic for Visual Studio.
 
 4)Enable(Select error serenity) needed rules for your type of project.
 
-You need at least Common(without version suffix) and one for specific version.
-
 ![alt tag](https://github.com/WhitePhoera/SEWhitelistDiagnostic/raw/master/step4.png)
 
-in sample i have selected rules for Mod-script for current steam version(common and public)
+screenshit is old, now there only mod or in-game rules, select needed one.
 
 5)Enjoy
