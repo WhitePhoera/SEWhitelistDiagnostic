@@ -89,7 +89,12 @@ namespace SEWhitelistChecker
         }
         private void AnalyzeSymbol(SyntaxNodeAnalysisContext context)
         {
+
             var node = context.Node;
+            if(node.SyntaxTree?.FilePath is string path && path.EndsWith(".AssemblyAttributes.cs", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
             // We'll check the qualified names on their own.
             if (IsQualifiedName(node.Parent))
             {
