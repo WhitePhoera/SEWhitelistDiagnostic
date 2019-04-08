@@ -258,6 +258,7 @@ class IgsData
 			"VRage.Game.ModAPI.Ingame.Utilities.*, VRage.Game",
 			"Sandbox.ModAPI.Ingame.*, Sandbox.Common",
 			"VRageMath.*, VRage.Math",
+			"VRage.Game.GUI.TextPanel.*, VRage.Game",
 			"Sandbox.Game.Gui.TerminalActionExtensions+*, Sandbox.Game",
 			"Sandbox.ModAPI.Interfaces.ITerminalAction+*, Sandbox.Common",
 			"Sandbox.ModAPI.Interfaces.ITerminalProperty+*, Sandbox.Common",
