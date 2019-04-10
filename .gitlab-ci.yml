@@ -6,7 +6,6 @@ build:
   stage: build
   script:
     - nuget.exe restore
-    - 'echo "%MSBUILD%"'
     - '"%MSBUILD%" /t:Build /p:Configuration=Release'
   only:
     - master
