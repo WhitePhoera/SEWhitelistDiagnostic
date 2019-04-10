@@ -1,0 +1,27 @@
+stages:
+  - build
+  - upload
+
+build:
+  stage: build
+  script:
+    - nuget.exe restore
+    - "%MSBUILD% /t:Build /p:Configuration=Release"
+  only:
+    - master
+  tags:
+    - cs
+    - msbuild
+    - cmd
+  artifacts:
+    paths:
+      - SEWhitelistChecker\SEWhitelistChecker\bin\Release\SEWhitelistChecker.dll
+    expire_in: 1 day
+
+upload-to-github:
+  stage: upload
+  script:
+    - dotnet GithubReleaseUploader.dll $GITHUB_TOKEN
+  tags:
+    - linux
+    - dotnet
