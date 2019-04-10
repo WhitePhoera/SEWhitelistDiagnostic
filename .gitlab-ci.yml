@@ -6,7 +6,7 @@ build:
   stage: build
   script:
     - nuget.exe restore
-    - "%MSBUILD% /t:Build /p:Configuration=Release"
+    - "\"%MSBUILD%\" /t:Build /p:Configuration=Release"
   only:
     - master
   tags:
