@@ -6,6 +6,7 @@ build:
   stage: build
   script:
     - nuget.exe restore
+    - chcp 65001
     - '"%MSBUILD%" /t:Build /p:Configuration=Release'
   only:
     - master
