@@ -25,3 +25,9 @@ Space engineers whitelist diagnostic for Visual Studio.
 screenshit is old, now there only mod or in-game rules, select needed one.
 
 5)Enjoy
+
+
+
+If you like this project or PhoBot on discord channel, you can support me:
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F2F71SMJQ)
