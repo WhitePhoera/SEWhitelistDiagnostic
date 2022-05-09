@@ -18,7 +18,7 @@ Space engineers whitelist diagnostic for Visual Studio.
 
 ![alt tag](https://github.com/WhitePhoera/SEWhitelistDiagnostic/raw/master/step3.2..png)
 
-4)Enable(Select error serenity) needed rules for your type of project.
+4)Enable(Select error severity) needed rules for your type of project.
 
 ![alt tag](https://github.com/WhitePhoera/SEWhitelistDiagnostic/raw/master/step4.png)
 
